@@ -1,2 +1,2 @@
 # learning
-this my test  repository about learing
+this is my test  repository about learing
