@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+<mapper namespace="com.demo.mapper.UserDao">
+
+    <!--使用别名-->
+    <select id="queryUserById" resultType="com.demo.pojo.User">
+      select
+       user.id as id,
+       user.username as userName,
+       user.password as password,
+       user.name as name,
+       user.age as age,
+       user.birthday as birthday,
+       user.sex as sex,
+       user.created as created,
+       user.updated as updated
+       from
+            user
+       where user.id = #{id};
+   </select>
+
+    <select id="queryUserAll" resultType="com.demo.pojo.User">
+        select * from  user;
+    </select>
+
+    <!--插入数据-->
+    <insert id="insertUser" parameterType="com.demo.pojo.User"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (
+        username,
+        password,
+        name,
+        age,
+        sex,
+        birthday,
+        created,
+        updated
+        )
+        VALUES
+        (
+        #{userName},
+        #{password},
+        #{name},
+        #{age},
+        #{sex},
+        #{birthday},
+        now(),
+        now()
+        );
+    </insert>
+
+    <update id="updateUser" parameterType="com.demo.pojo.User">
+        UPDATE user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userName!=null">username = #{userName},</if>
+            <if test="password!=null">password = #{password},</if>
+            <if test="name!=null">name = #{name},</if>
+            <if test="age!=null">age = #{age},</if>
+            <if test="sex!=null">sex = #{sex},</if>
+            <if test="birthday!=null">birthday = #{birthday},</if>
+            updated = now(),
+        </trim>
+        WHERE
+        (id = #{id});
+    </update>
+
+    <delete id="deleteUser">
+        delete from user where id=#{id}
+    </delete>
+</mapper>
