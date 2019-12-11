@@ -1,2 +1,2 @@
 # learning
-this is my test  repository about learing
+这是我的学习Java的git仓库
