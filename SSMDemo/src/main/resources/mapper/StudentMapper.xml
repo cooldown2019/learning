@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.StudentDao">
+    <resultMap id="BaseResultMap" type="com.pojo.Student">
+        <id column="id"  property="id" />
+        <result column="name"  property="name" jdbcType="VARCHAR"/>
+        <result column="qq"  property="qq" />
+        <result column="jnshuType" property="jnshutype" />
+        <result column="joinTime"  property="jointime" />
+        <result column="school" property="school" />
+        <result column="onlineId"  property="onlineid" />
+        <result column="dailyUrl"  property="dailyurl" />
+        <result column="slogan"  property="slogan" />
+        <result column="counsellor" property="counsellor" />
+        <result column="knownPath"  property="knownpath" />
+        <result column="createTime" property="createtime" />
+        <result column="updateTime"  property="updatetime" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, name, qq, jnshuType, joinTime, school, onlineId, dailyUrl, slogan, counsellor,
+    knownPath, createTime, updateTime
+  </sql>
+
+
+    <insert id="addStudent" parameterType="com.pojo.Student">
+       insert into student (id, student.name, qq,
+      jnshuType, joinTime, school,
+      onlineId, dailyUrl, slogan,
+      counsellor, knownPath, createTime,
+      updateTime)
+    values (#{id}, #{name ,jdbcType=VARCHAR}, #{qq},
+      #{jnshutype}, #{jointime}, #{school},
+      #{onlineid}, #{dailyurl}, #{slogan},
+      #{counsellor}, #{knownpath},now(),
+      #{updatetime})
+      </insert>
+
+    <delete id="deleteStudentById" parameterType="java.lang.Long">
+        DELETE FROM student WHERE id=#{id}
+    </delete>
+
+    <update id="updateStudent" parameterType="Student">
+       update student
+    set name = #{name},
+      qq = #{qq},
+      jnshuType = #{jnshutype},
+      joinTime = #{jointime},
+      school = #{school},
+      onlineId = #{onlineid},
+      dailyUrl = #{dailyurl},
+      slogan = #{slogan},
+      counsellor = #{counsellor},
+      knownPath = #{knownpath},
+      updateTime = now()
+    where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryById" resultType="Student" parameterType="long">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM student
+        WHERE id=#{id}
+    </select>
+    <select id="queryAllStudent" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM student
+    </select>
+
+</mapper>
