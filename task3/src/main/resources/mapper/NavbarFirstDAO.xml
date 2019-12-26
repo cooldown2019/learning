@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.NavbarFirstDAO">
+  <resultMap id="BaseResultMap" type="com.demo.pojo.NavbarFirst">
+    <id column="first_id" jdbcType="INTEGER" property="firstId" />
+    <result column="first_name" jdbcType="VARCHAR" property="firstName" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="creat_by" jdbcType="VARCHAR" property="creatBy" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    first_id, first_name, create_time, creat_by, update_time, update_by
+  </sql>
+
+
+  <select id="listFirst"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from navbar_first
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from navbar_first
+    where first_id = #{firstId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from navbar_first
+    where first_id = #{firstId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.pojo.NavbarFirst">
+    insert into navbar_first (first_id, first_name, create_time,
+      creat_by, update_time, update_by
+      )
+    values (#{firstId,jdbcType=INTEGER}, #{firstName,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT},
+      #{creatBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=BIGINT}, #{updateBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.pojo.NavbarFirst">
+    insert into navbar_first
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="firstId != null">
+        first_id,
+      </if>
+      <if test="firstName != null">
+        first_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="creatBy != null">
+        creat_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="firstId != null">
+        #{firstId,jdbcType=INTEGER},
+      </if>
+      <if test="firstName != null">
+        #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="creatBy != null">
+        #{creatBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.pojo.NavbarFirst">
+    update navbar_first
+    <set>
+      <if test="firstName != null">
+        first_name = #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="creatBy != null">
+        creat_by = #{creatBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where first_id = #{firstId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.pojo.NavbarFirst">
+    update navbar_first
+    set first_name = #{firstName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      creat_by = #{creatBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where first_id = #{firstId,jdbcType=INTEGER}
+  </update>
+</mapper>

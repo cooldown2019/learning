@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.VisitorDAO">
+  <resultMap id="BaseResultMap" type="com.demo.pojo.Visitor">
+    <id column="visitor_id" jdbcType="INTEGER" property="visitorId" />
+    <result column="visitor_name" jdbcType="VARCHAR" property="visitorName" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    visitor_id, visitor_name, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from visitor
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from visitor
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.pojo.Visitor">
+    insert into visitor (visitor_id, visitor_name, create_time
+      )
+    values (#{visitorId,jdbcType=INTEGER}, #{visitorName,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}
+      )
+  </insert>
+
+  <insert id="insertName" >
+    insert into visitor (visitor_name)
+    values (#{visitorName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.pojo.Visitor">
+    insert into visitor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="visitorName != null">
+        visitor_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="visitorName != null">
+        #{visitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.pojo.Visitor">
+    update visitor
+    <set>
+      <if test="visitorName != null">
+        visitor_name = #{visitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.pojo.Visitor">
+    update visitor
+    set visitor_name = #{visitorName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT}
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.BannerDAO">
+  <resultMap id="BaseResultMap" type="com.demo.pojo.Banner">
+    <id column="banner_id" jdbcType="INTEGER" property="bannerId" />
+    <result column="banner_name" jdbcType="VARCHAR" property="bannerName" />
+    <result column="banner_url" jdbcType="VARCHAR" property="bannerUrl" />
+    <result column="banner_img" jdbcType="VARCHAR" property="bannerImg" />
+    <result column="banner_status" jdbcType="INTEGER" property="bannerStatus" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    banner_id, banner_name, banner_url, banner_img, banner_status, create_time, create_by, 
+    update_time, update_by
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from banner
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from banner
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.pojo.Banner">
+    insert into banner (banner_id, banner_name, banner_url, 
+      banner_img, banner_status, create_time, 
+      create_by, update_time, update_by
+      )
+    values (#{bannerId,jdbcType=INTEGER}, #{bannerName,jdbcType=VARCHAR}, #{bannerUrl,jdbcType=VARCHAR}, 
+      #{bannerImg,jdbcType=VARCHAR}, #{bannerStatus,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, 
+      #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=BIGINT}, #{updateBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.pojo.Banner">
+    insert into banner
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bannerId != null">
+        banner_id,
+      </if>
+      <if test="bannerName != null">
+        banner_name,
+      </if>
+      <if test="bannerUrl != null">
+        banner_url,
+      </if>
+      <if test="bannerImg != null">
+        banner_img,
+      </if>
+      <if test="bannerStatus != null">
+        banner_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bannerId != null">
+        #{bannerId,jdbcType=INTEGER},
+      </if>
+      <if test="bannerName != null">
+        #{bannerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerUrl != null">
+        #{bannerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerImg != null">
+        #{bannerImg,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerStatus != null">
+        #{bannerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.pojo.Banner">
+    update banner
+    <set>
+      <if test="bannerName != null">
+        banner_name = #{bannerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerUrl != null">
+        banner_url = #{bannerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerImg != null">
+        banner_img = #{bannerImg,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerStatus != null">
+        banner_status = #{bannerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.pojo.Banner">
+    update banner
+    set banner_name = #{bannerName,jdbcType=VARCHAR},
+      banner_url = #{bannerUrl,jdbcType=VARCHAR},
+      banner_img = #{bannerImg,jdbcType=VARCHAR},
+      banner_status = #{bannerStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.GuestbookDAO">
+  <resultMap id="BaseResultMap" type="com.demo.pojo.Guestbook">
+    <id column="guestbook_id" jdbcType="INTEGER" property="guestbookId" />
+    <result column="works_id" jdbcType="INTEGER" property="worksId" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="visitor_id" jdbcType="INTEGER" property="visitorId" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="guerstbook_status" jdbcType="INTEGER" property="guerstbookStatus" />
+    <result column="status_time" jdbcType="BIGINT" property="statusTime" />
+    <result column="status_by" jdbcType="VARCHAR" property="statusBy" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    guestbook_id, works_id, admin_id, visitor_id, message, guerstbook_status, status_time, 
+    status_by, create_time, create_by
+  </sql>
+
+  <select id="selectByWorksId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from guestbook
+    where works_id = #{worksId,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from guestbook
+    where guestbook_id = #{guestbookId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from guestbook
+    where guestbook_id = #{guestbookId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.pojo.Guestbook">
+    insert into guestbook (guestbook_id, works_id, admin_id, 
+      visitor_id, message, guerstbook_status, 
+      status_time, status_by, create_time, 
+      create_by)
+    values (#{guestbookId,jdbcType=INTEGER}, #{worksId,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, 
+      #{visitorId,jdbcType=INTEGER}, #{message,jdbcType=VARCHAR}, #{guerstbookStatus,jdbcType=INTEGER}, 
+      #{statusTime,jdbcType=BIGINT}, #{statusBy,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{createBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.pojo.Guestbook">
+    insert into guestbook
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="guestbookId != null">
+        guestbook_id,
+      </if>
+      <if test="worksId != null">
+        works_id,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="visitorId != null">
+        visitor_id,
+      </if>
+      <if test="message != null">
+        message,
+      </if>
+      <if test="guerstbookStatus != null">
+        guerstbook_status,
+      </if>
+      <if test="statusTime != null">
+        status_time,
+      </if>
+      <if test="statusBy != null">
+        status_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="guestbookId != null">
+        #{guestbookId,jdbcType=INTEGER},
+      </if>
+      <if test="worksId != null">
+        #{worksId,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="visitorId != null">
+        #{visitorId,jdbcType=INTEGER},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="guerstbookStatus != null">
+        #{guerstbookStatus,jdbcType=INTEGER},
+      </if>
+      <if test="statusTime != null">
+        #{statusTime,jdbcType=BIGINT},
+      </if>
+      <if test="statusBy != null">
+        #{statusBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.pojo.Guestbook">
+    update guestbook
+    <set>
+      <if test="worksId != null">
+        works_id = #{worksId,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="visitorId != null">
+        visitor_id = #{visitorId,jdbcType=INTEGER},
+      </if>
+      <if test="message != null">
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="guerstbookStatus != null">
+        guerstbook_status = #{guerstbookStatus,jdbcType=INTEGER},
+      </if>
+      <if test="statusTime != null">
+        status_time = #{statusTime,jdbcType=BIGINT},
+      </if>
+      <if test="statusBy != null">
+        status_by = #{statusBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where guestbook_id = #{guestbookId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.pojo.Guestbook">
+    update guestbook
+    set works_id = #{worksId,jdbcType=INTEGER},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      visitor_id = #{visitorId,jdbcType=INTEGER},
+      message = #{message,jdbcType=VARCHAR},
+      guerstbook_status = #{guerstbookStatus,jdbcType=INTEGER},
+      status_time = #{statusTime,jdbcType=BIGINT},
+      status_by = #{statusBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      create_by = #{createBy,jdbcType=VARCHAR}
+    where guestbook_id = #{guestbookId,jdbcType=INTEGER}
+  </update>
+</mapper>

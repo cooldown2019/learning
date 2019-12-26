@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.NavbarSecondDAO">
+  <resultMap id="BaseResultMap" type="com.demo.pojo.NavbarSecond">
+    <id column="second_id" jdbcType="INTEGER" property="secondId" />
+    <result column="second_name" jdbcType="VARCHAR" property="secondName" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="creat_by" jdbcType="VARCHAR" property="creatBy" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="first_id" jdbcType="INTEGER" property="firstId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    second_id, second_name, create_time, creat_by, update_time, update_by, first_id
+  </sql>
+
+  <select id="=ListSecond"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from navbar_second
+  </select>
+
+  <select id="selectByFirstId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from navbar_second
+    where first_id = #{firstid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from navbar_second
+    where second_id = #{secondId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from navbar_second
+    where second_id = #{secondId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.pojo.NavbarSecond">
+    insert into navbar_second (second_id, second_name, create_time, 
+      creat_by, update_time, update_by, 
+      first_id)
+    values (#{secondId,jdbcType=INTEGER}, #{secondName,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{creatBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=BIGINT}, #{updateBy,jdbcType=VARCHAR}, 
+      #{firstId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.pojo.NavbarSecond">
+    insert into navbar_second
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="secondId != null">
+        second_id,
+      </if>
+      <if test="secondName != null">
+        second_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="creatBy != null">
+        creat_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="firstId != null">
+        first_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="secondId != null">
+        #{secondId,jdbcType=INTEGER},
+      </if>
+      <if test="secondName != null">
+        #{secondName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="creatBy != null">
+        #{creatBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="firstId != null">
+        #{firstId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.pojo.NavbarSecond">
+    update navbar_second
+    <set>
+      <if test="secondName != null">
+        second_name = #{secondName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="creatBy != null">
+        creat_by = #{creatBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="firstId != null">
+        first_id = #{firstId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where second_id = #{secondId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.pojo.NavbarSecond">
+    update navbar_second
+    set second_name = #{secondName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      creat_by = #{creatBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      first_id = #{firstId,jdbcType=INTEGER}
+    where second_id = #{secondId,jdbcType=INTEGER}
+  </update>
+</mapper>

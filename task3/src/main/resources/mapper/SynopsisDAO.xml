@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.SynopsisDAO">
+  <resultMap id="BaseResultMap" type="com.demo.pojo.Synopsis">
+    <id column="synopsis_id" jdbcType="INTEGER" property="synopsisId" />
+    <result column="synopsis_img" jdbcType="VARCHAR" property="synopsisImg" />
+    <result column="synopsis_name" jdbcType="VARCHAR" property="synopsisName" />
+    <result column="synopsis_video" jdbcType="VARCHAR" property="synopsisVideo" />
+    <result column="synopsis_content" jdbcType="VARCHAR" property="synopsisContent" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    synopsis_id, synopsis_img, synopsis_name, synopsis_video, synopsis_content, create_time, 
+    create_by, update_time, update_by
+  </sql>
+
+  <select id="listSynopsis"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from synopsis
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from synopsis
+    where synopsis_id = #{synopsisId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from synopsis
+    where synopsis_id = #{synopsisId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.pojo.Synopsis">
+    insert into synopsis (synopsis_id, synopsis_img, synopsis_name, 
+      synopsis_video, synopsis_content, create_time, 
+      create_by, update_time, update_by
+      )
+    values (#{synopsisId,jdbcType=INTEGER}, #{synopsisImg,jdbcType=VARCHAR}, #{synopsisName,jdbcType=VARCHAR}, 
+      #{synopsisVideo,jdbcType=VARCHAR}, #{synopsisContent,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=BIGINT}, #{updateBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.pojo.Synopsis">
+    insert into synopsis
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="synopsisId != null">
+        synopsis_id,
+      </if>
+      <if test="synopsisImg != null">
+        synopsis_img,
+      </if>
+      <if test="synopsisName != null">
+        synopsis_name,
+      </if>
+      <if test="synopsisVideo != null">
+        synopsis_video,
+      </if>
+      <if test="synopsisContent != null">
+        synopsis_content,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="synopsisId != null">
+        #{synopsisId,jdbcType=INTEGER},
+      </if>
+      <if test="synopsisImg != null">
+        #{synopsisImg,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsisName != null">
+        #{synopsisName,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsisVideo != null">
+        #{synopsisVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsisContent != null">
+        #{synopsisContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.pojo.Synopsis">
+    update synopsis
+    <set>
+      <if test="synopsisImg != null">
+        synopsis_img = #{synopsisImg,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsisName != null">
+        synopsis_name = #{synopsisName,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsisVideo != null">
+        synopsis_video = #{synopsisVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsisContent != null">
+        synopsis_content = #{synopsisContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where synopsis_id = #{synopsisId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.pojo.Synopsis">
+    update synopsis
+    set synopsis_img = #{synopsisImg,jdbcType=VARCHAR},
+      synopsis_name = #{synopsisName,jdbcType=VARCHAR},
+      synopsis_video = #{synopsisVideo,jdbcType=VARCHAR},
+      synopsis_content = #{synopsisContent,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where synopsis_id = #{synopsisId,jdbcType=INTEGER}
+  </update>
+</mapper>
