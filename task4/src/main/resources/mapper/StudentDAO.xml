@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.task.dao.StudentDAO">
+  <resultMap id="BaseResultMap" type="com.task.po.Student">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="working" jdbcType="INTEGER" property="working" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="profession_id" jdbcType="INTEGER" property="professionId" />
+    <result column="expreience" jdbcType="VARCHAR" property="expreience" />
+    <result column="excellent" jdbcType="INTEGER" property="excellent" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="profession" jdbcType="VARCHAR" property="profession" />
+  </resultMap>
+
+  <!--    查询只是优秀学员的信息，只展示4位-->
+  <select id="show" resultType="com.task.po.Student">
+        select * from student   order by excellent desc limit 0, 4
+    </select>
+  <!--    查询已经找到工作的学员数量-->
+  <select id="countByWorking"  resultType="java.lang.Integer" >
+        select count(working) from student where working=1
+    </select>
+  <!--    查询在学的学员数量-->
+  <select id="countByLearning" resultType="java.lang.Integer" >
+    select  count(working) from student where working=0
+    </select>
+
+  <sql id="Base_Column_List">
+    id, `name`, picture, working, company, job, profession_id, expreience, excellent, 
+    create_time, update_time, create_by, update_by, profession
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from student
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.task.po.Student" useGeneratedKeys="true">
+    insert into student (`name`, picture, working, 
+      company, job, profession_id, 
+      expreience, excellent, create_time, 
+      update_time, create_by, update_by, 
+      profession)
+    values (#{name,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{working,jdbcType=INTEGER}, 
+      #{company,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{professionId,jdbcType=INTEGER}, 
+      #{expreience,jdbcType=VARCHAR}, #{excellent,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
+      #{profession,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.task.po.Student" useGeneratedKeys="true">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="working != null">
+        working,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="job != null">
+        job,
+      </if>
+      <if test="professionId != null">
+        profession_id,
+      </if>
+      <if test="expreience != null">
+        expreience,
+      </if>
+      <if test="excellent != null">
+        excellent,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="profession != null">
+        profession,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="working != null">
+        #{working,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="professionId != null">
+        #{professionId,jdbcType=INTEGER},
+      </if>
+      <if test="expreience != null">
+        #{expreience,jdbcType=VARCHAR},
+      </if>
+      <if test="excellent != null">
+        #{excellent,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.task.po.Student">
+    update student
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="working != null">
+        working = #{working,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="professionId != null">
+        profession_id = #{professionId,jdbcType=INTEGER},
+      </if>
+      <if test="expreience != null">
+        expreience = #{expreience,jdbcType=VARCHAR},
+      </if>
+      <if test="excellent != null">
+        excellent = #{excellent,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.task.po.Student">
+    update student
+    set `name` = #{name,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      working = #{working,jdbcType=INTEGER},
+      company = #{company,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      profession_id = #{professionId,jdbcType=INTEGER},
+      expreience = #{expreience,jdbcType=VARCHAR},
+      excellent = #{excellent,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
