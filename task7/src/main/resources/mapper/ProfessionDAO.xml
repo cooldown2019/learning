@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.task.dao.ProfessionDAO">
+  <resultMap id="BaseResultMap" type="com.task.po.Profession">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="classify_id" jdbcType="INTEGER" property="classifyId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="sill" jdbcType="BIGINT" property="sill" />
+    <result column="grade" jdbcType="BIGINT" property="grade" />
+    <result column="growth" jdbcType="VARCHAR" property="growth" />
+    <result column="scarcity" jdbcType="BIGINT" property="scarcity" />
+    <result column="salary_one" jdbcType="VARCHAR" property="salaryOne" />
+    <result column="salary_two" jdbcType="VARCHAR" property="salaryTwo" />
+    <result column="salary_three" jdbcType="VARCHAR" property="salaryThree" />
+    <result column="number" jdbcType="BIGINT" property="number" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, classify_id, `name`, picture, introduction, sill, grade, growth, scarcity, salary_one, 
+    salary_two, salary_three, `number`, create_time, update_time, create_by, update_by
+  </sql>
+
+  <select id="getListProfession"   parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from profession
+    where classify_id = #{classifyId,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from profession
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from profession
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.task.po.Profession" useGeneratedKeys="true">
+    insert into profession (classify_id, `name`, picture, 
+      introduction, sill, grade, 
+      growth, scarcity, salary_one, 
+      salary_two, salary_three, `number`, 
+      create_time, update_time, create_by, 
+      update_by)
+    values (#{classifyId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, 
+      #{introduction,jdbcType=VARCHAR}, #{sill,jdbcType=BIGINT}, #{grade,jdbcType=BIGINT}, 
+      #{growth,jdbcType=VARCHAR}, #{scarcity,jdbcType=BIGINT}, #{salaryOne,jdbcType=VARCHAR}, 
+      #{salaryTwo,jdbcType=VARCHAR}, #{salaryThree,jdbcType=VARCHAR}, #{number,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{createBy,jdbcType=VARCHAR}, 
+      #{updateBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.task.po.Profession" useGeneratedKeys="true">
+    insert into profession
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classifyId != null">
+        classify_id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="sill != null">
+        sill,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="growth != null">
+        growth,
+      </if>
+      <if test="scarcity != null">
+        scarcity,
+      </if>
+      <if test="salaryOne != null">
+        salary_one,
+      </if>
+      <if test="salaryTwo != null">
+        salary_two,
+      </if>
+      <if test="salaryThree != null">
+        salary_three,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classifyId != null">
+        #{classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="sill != null">
+        #{sill,jdbcType=BIGINT},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=BIGINT},
+      </if>
+      <if test="growth != null">
+        #{growth,jdbcType=VARCHAR},
+      </if>
+      <if test="scarcity != null">
+        #{scarcity,jdbcType=BIGINT},
+      </if>
+      <if test="salaryOne != null">
+        #{salaryOne,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryTwo != null">
+        #{salaryTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryThree != null">
+        #{salaryThree,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.task.po.Profession">
+    update profession
+    <set>
+      <if test="classifyId != null">
+        classify_id = #{classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="sill != null">
+        sill = #{sill,jdbcType=BIGINT},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=BIGINT},
+      </if>
+      <if test="growth != null">
+        growth = #{growth,jdbcType=VARCHAR},
+      </if>
+      <if test="scarcity != null">
+        scarcity = #{scarcity,jdbcType=BIGINT},
+      </if>
+      <if test="salaryOne != null">
+        salary_one = #{salaryOne,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryTwo != null">
+        salary_two = #{salaryTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryThree != null">
+        salary_three = #{salaryThree,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        `number` = #{number,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.task.po.Profession">
+    update profession
+    set classify_id = #{classifyId,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      sill = #{sill,jdbcType=BIGINT},
+      grade = #{grade,jdbcType=BIGINT},
+      growth = #{growth,jdbcType=VARCHAR},
+      scarcity = #{scarcity,jdbcType=BIGINT},
+      salary_one = #{salaryOne,jdbcType=VARCHAR},
+      salary_two = #{salaryTwo,jdbcType=VARCHAR},
+      salary_three = #{salaryThree,jdbcType=VARCHAR},
+      `number` = #{number,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
